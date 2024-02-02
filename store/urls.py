@@ -7,7 +7,8 @@ from store import settings
 urlpatterns = [
     path('admin/', admin.site.urls),  
     path('', include('products.urls')),
-    path('users/', include('users.urls'))
+    path('users/', include('users.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 

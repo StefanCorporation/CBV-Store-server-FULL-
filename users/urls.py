@@ -11,5 +11,5 @@ urlpatterns = [
     path('profile/<int:pk>/', login_required(views.UserProfileView.as_view()), name='profile'),
     # всторенный логаут нечего лишнего делать не надо лол (сеттингах глобально редирект сделай на главную)
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('verify/<str:email>/<uuid:code>/', views.EmmailVerificationView.as_view(), name='email_verification')
+    path('verify/<str:email>/<uuid:code>/', views.EmailVerificationView.as_view(), name='email_verification')
 ]

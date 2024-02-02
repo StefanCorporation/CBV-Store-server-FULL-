@@ -34,7 +34,19 @@ class Product(models.Model):
 
     def __str__(self):
         return f"Продукт: {self.product_name} | Категория: {self.category.category_name}"
+    
+    
 
+
+
+class BasketQuerySet(models.QuerySet):
+
+    def total_sum(self): 
+        return sum(basket.sum() for basket in self)
+    
+
+    def total_quantity(self):
+        return sum(basket.quantity for basket in self)    
 
 
 class Basket(models.Model):
@@ -43,9 +55,16 @@ class Basket(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
 
+
+    objects = BasketQuerySet.as_manager()
+
     def __str__(self):
         return f"Корзина для {self.user.username} | Продукт: {self.product.product_name}"
     
 
     def sum(self):
         return self.product.product_price * self.quantity
+    
+
+
+    
