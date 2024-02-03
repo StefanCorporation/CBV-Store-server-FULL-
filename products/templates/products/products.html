@@ -1,5 +1,5 @@
 {% extends 'products/base.html'%}
-{% load static %}
+{% load static cache %}
 
 
 
@@ -54,8 +54,10 @@
             </div>  
 
             <div class="row">
+            <!-- cache 3 sec. -->
+            {% cache 3 object_list %}    
                 {% for product in object_list %}
-                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <a href="#">
                             <img class="card-img-top"
@@ -75,8 +77,9 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                    </div>
                 {% endfor %}
+            {% endcache %}
             </div>
 
             {% if is_paginated %}

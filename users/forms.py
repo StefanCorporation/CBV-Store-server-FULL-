@@ -1,13 +1,10 @@
-import uuid
-from datetime import timedelta
-
 from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
                                        UserCreationForm)
-from django.utils.timezone import now
 
-from users.models import EmailVerification, User
 
+from users.models import User
+from users.tasks import send_email_verification
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -62,10 +59,9 @@ class UserRegistrationForm(UserCreationForm):
     #метод для работы с отправкой эл почты
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=True)
-        #ссылка будет доступна 48ч now это от отправки + сколько доступна будет
-        expiration = now() + timedelta(hours=48)
-        record = EmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration)
-        record.send_verifivation_email()
+        
+        #работет через users.tasks celery
+        send_email_verification.delay(user.id)
         return user
 
 
