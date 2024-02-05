@@ -1,5 +1,5 @@
 {% extends 'products/base.html'%}
-{% load static cache %}
+{% load static cache humanize %}
 
 
 
@@ -66,7 +66,7 @@
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">{{ product.product_name }}</a>
+                                <a href="#">{{ product.product_name|intcomma }}</a>
                             </h4>
                             <h5>{{ product.product_price }} руб.</h5>
                             <p class="card-text">{{ product.description }}</p>

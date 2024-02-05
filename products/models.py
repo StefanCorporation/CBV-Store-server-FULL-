@@ -38,7 +38,7 @@ class Product(models.Model):
     
 
 
-
+# обработка колличества использование в контексте
 class BasketQuerySet(models.QuerySet):
 
     def total_sum(self): 
