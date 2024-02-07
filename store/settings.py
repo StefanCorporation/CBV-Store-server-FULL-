@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import environ
 
+
 from pathlib import Path
 
 
@@ -34,7 +35,7 @@ env = environ.Env(
     EMAIL_USE_SSL=(str),
 
     CELERY_BROKER_URL=(str),
-    CELERY_RESULT_BACKEND=(str)
+    CELERY_RESULT_BACKEND=(str),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -71,6 +72,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.humanize',
     'django_extensions',
+    
+    'rest_framework',
+    'rest_framework.authtoken',
 
     'allauth',
     'allauth.account',
@@ -81,6 +85,7 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig', 
     'orders.apps.OrdersConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -224,3 +229,16 @@ SOCIALACCOUNT_PROVIDERS = {
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+
+
+# DjangoREST
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3,
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+

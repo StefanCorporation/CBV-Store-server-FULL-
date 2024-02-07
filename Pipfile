@@ -5,6 +5,15 @@ name = "pypi"
 
 [packages]
 django = "==4.2.7"
+pillow = "*"
+celery = {extras = ["redis"], version = "*"}
+eventlet = "*"
+django-environ = "*"
+django-extensions = "*"
+django-allauth = "*"
+django-debug-toolbar = "*"
+psycopg2 = "*"
+djangorestframework = "*"
 
 [dev-packages]
 ipykernel = "*"
